@@ -7,21 +7,19 @@ import { serve } from "inngest/express";
 import { inngest, functions } from "./inngest/index.js"
 
 const app = express();
-const port = 3000;
 
-await connectDB()
-
-//Middleware
+// Middleware
 app.use(express.json())
 app.use(cors())
 app.use(clerkMiddleware())
 
+// Connect DB
+connectDB()
 
 // API Routes
-app.get('/',(req,res)=>res.send('Server is Live!'))
+app.get('/', (req, res) => res.send('Server is Live!'))
 app.get('/favicon.ico', (req, res) => res.status(204).end());
 app.use('/api/inngest', serve({ client: inngest, functions }))
 
- 
-app.listen(port, ()=> console.log(`Server listening at http://localhost:${port}`));
-
+// ✅ Export for Vercel instead of app.listen
+export default app;
