@@ -6,7 +6,7 @@ export const inngest = new Inngest({ id: "movie-ticket-booking" });
 
 // Inngest Function to save user data to a database
 const syncUserCreation = inngest.createFunction(
-    { id: 'sync-user-from-clerk', triggers: [{ event: 'clerk/user.created' }] },
+    { id: 'sync-user-from-clerk', triggers: [{ event: 'user.created' }] },
     async ({ event }) => {
         const { id, first_name, last_name, email_addresses, image_url } = event.data
         const userData = {
@@ -21,7 +21,7 @@ const syncUserCreation = inngest.createFunction(
 
 // Inngest Function to update user data in database
 const syncUserUpdation = inngest.createFunction(
-    { id: 'update-user-from-clerk', triggers: [{ event: 'clerk/user.updated' }] },
+    { id: 'update-user-from-clerk', triggers: [{ event: 'user.updated' }] },
     async ({ event }) => {
         const { id, first_name, last_name, email_addresses, image_url } = event.data
         const userData = {
@@ -36,7 +36,7 @@ const syncUserUpdation = inngest.createFunction(
 
 // Inngest Function to delete user from database
 const syncUserDeletion = inngest.createFunction(
-    { id: 'delete-user-with-clerk', triggers: [{ event: 'clerk/user.deleted' }] },
+    { id: 'delete-user-with-clerk', triggers: [{ event: 'user.deleted' }] },
     async ({ event }) => {
         const { id } = event.data
         await User.findByIdAndDelete(id)
