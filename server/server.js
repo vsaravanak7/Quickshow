@@ -20,8 +20,7 @@ app.get('/', (req, res) => { res.send('Server is Live!');});
 app.get('/favicon.ico', (req, res) => res.status(204).end());
 app.get('/favicon.png', (req, res) => res.status(204).end());
 
-app.use(clerkMiddleware())
 app.use('/api/inngest', serve({ client: inngest, functions }))
-
+app.use(clerkMiddleware())
 // ✅ Export for Vercel instead of app.listen
 export default app;
