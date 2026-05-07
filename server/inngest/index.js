@@ -6,6 +6,7 @@ export const inngest = new Inngest({ id: "movie-ticket-booking" });
 const syncUserCreation = inngest.createFunction(
   { id: "sync-user-from-clerk", triggers: [{ event: "user.created" }] },
   async ({ event }) => {
+    console.log("Full event data:", JSON.stringify(event.data, null, 2))
     const { id, first_name, last_name, email_addresses, image_url } = event.data;
     await User.create({
       _id: id,
